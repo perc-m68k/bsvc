@@ -3,6 +3,7 @@
 #include "M68k/devices/DeviceRegistry.hpp"
 #include "M68k/devices/Gdbsock.hpp"
 #include "M68k/devices/M68681.hpp"
+#include "M68k/devices/M68681tcp.hpp"
 #include "M68k/devices/RAM.hpp"
 #include "M68k/devices/Timer.hpp"
 
@@ -19,6 +20,10 @@ const DeviceInformation DeviceRegistry::ourDeviceInfo[] = {
     {
      "M68681", "Motorola 68681 Dual UART",
 #include "M68k/devices/M68681.scr"
+    },
+    {
+     "M68681_tcp", "Motorola 68681 Dual UART through tcp",
+#include "M68k/devices/M68681tcp.scr"
     },
     {
      "Timer", "Timer",
@@ -39,6 +44,8 @@ bool DeviceRegistry::Create(const std::string &name, const std::string &args,
     device = new GdbSocket(args, cpu);
   else if (name == "M68681")
     device = new M68681(args, cpu);
+  else if (name == "M68681_tcp")
+    device = new M68681_tcp(args, cpu);
   else if (name == "Timer")
     device = new Timer(args, cpu);
 
